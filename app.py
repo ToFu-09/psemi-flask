@@ -11,20 +11,73 @@ class Todo(db.Model):
     title = db.Column(db.String(100))
     details = db.Column(db.String(100))
 
-@app.route("/")
+#@app.route("/")
+#def index():
+#    tasks = Todo.query.all()
+#    return render_template("index.html", tasks = tasks) 
+
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    tasks = Todo.query.all()
-    return render_template("index.html", tasks = tasks) 
+    if request.method == 'GET':
+        tasks = Todo.query.all()
+        return render_template('index.html', tasks = tasks)
 
-@app.route("/create", methods=["POST"])
+    else:
+        title = request.form.get('title')
+        details = request.form.get('details')
+
+        new_task = Todo(title = title, details = details)
+
+        db.session.add(new_task)
+        db.session.commit()
+        return redirect('/')
+
+
+@app.route('/create')
 def create():
-    title = request.form.get("title")
-    details = request.form.get("details")
-    new_task = Todo(title = title, details = details)
+    return render_template('create.html')
 
-    db.session.add(new_task)
-    db.session.commit()
-    return redirect("/")
+#@app.route("/create", methods=["POST"])
+#def create():
+#    title = request.form.get("title")
+#    details = request.form.get("details")
+#   new_task = Todo(title = title, details = details)
+
+#    db.session.add(new_task)
+#    db.session.commit()
+#    return redirect("/")
+
+#@app.route("/create", methods=['GET', "POST"])
+#def create():
+#    render_template('create.html')
+#    if request.method == 'GET':
+#        task = Todo.query.all()
+#        return render_template('index.html', task = task)
+
+#    else:
+#       title = request.form.get('title')
+#        details = request.form.get('details')
+
+#        new_task = Todo(title=title, details=details)
+
+ #       db.session.add(new_task)
+  #      db.session.commit()
+   #     return redirect('/')
+
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    update_task = Todo.query.get(id)
+    if request.method == 'GET':
+        return render_template('update.html', task = update_task)
+    else:
+        update_task.title = request.form.get('title')
+        update_task.details = request.form.get('details')
+
+        db.session.commit()
+        return redirect('/')
+
 
 @app.route('/delete/<int:id>')
 def delete(id):
