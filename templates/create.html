@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="form">
-    <form action="/" method="POST">
-        <label for="title">Title</label>
-        <input type="text" name="title">
-        <label for="details">Detail</label>
-        <input type="text" name="details">
-        <input type="submit" value="Create">
-    </form>
-</div>
+<h2 class="m-5">Create New Task</h2>
+<form class="m-5" action="/" method="POST">
+    <div class="form-group pb-3">
+        <label for="title">Title : </label>
+        <input type="text" class="form-control" name="title" aria-describedby="title-help">
+    </div>
+    <div class="form-group pb-3">
+        <label for="details">Detail : </label>
+        <input type="text" class="form-control" name="details">
+    </div>
+    <a class="btn btn-outline-primary" href="/" role="button">Return</a>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 {% endblock %}

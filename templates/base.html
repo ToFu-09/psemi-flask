@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Todo app</title>
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+    <title>Todo app</title>
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div style="font-family: HGｺﾞｼｯｸE; font-weight: 100;">
+        <nav class="navbar navbar-light bg-primary p-3">
+            <a class="navbar-brand pl-3" href="/" style="font-size: 2rem;">Todo App</a>
+            <a type="button" href="/create"><button class="btn btn-outline-info me-2" style="font-size: 1.5rem">&raquo;  Create</button></a>
+        </nav>
+    </div>
+    {% block body %}{% endblock %}
+</body>
+
 </html>
